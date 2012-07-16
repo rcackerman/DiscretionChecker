@@ -39,7 +39,8 @@
 			
 			
 			//If the respondent (potentially) has a criminal record, they should be shown legal aid clinics.
-			//var $('#recordyes, #recordmaybe').bind('click',}, buttonClicked);
+			$('#recordyes, #recordmaybe').bind('click', {nextsection:"#legalaid", hide: "#no"}, buttonClicked);
+			$('#legalaidModal').modal('hide');
 			//If the respondent does not have a GED, they should be show GED classes.
 			$('#myModal').modal('hide');
 			$('#schoolingno3').bind('click',{nextsection:'#noged', hide:'#any-yes'}, buttonClicked);
@@ -134,7 +135,33 @@
 		
 		<!-- If yes or maybe, show: -->
 		<div id="legalaid" style="display:none">
-			<p>You will not qualify for prosecutorial discretion. Below are some legal aid clinics that can help with expungement, if possible. Also, please see the <a href="resources.html">resources page</a> for organizations to call for more help.</p></p>
+			<p>You will not qualify for prosecutorial discretion. Below are some legal aid clinics that can help with expungement, if possible. Also, please see the <a href="resources.html">resources page</a> for organizations to call for more help.</p>
+			<form><input type="text" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source='["Belleville","Dearborn Heights","Dearborn","Detroit","Hamtramck","River Rouge","Romulus","Southgate","Taylor"," Trenton"," Wayne"," Westland","Woodhaven"," Wyandotte"]'>
+			<a class="btn" data-toggle="modal" href="#legalaidModal">Show me organizations!</button></form>
+			
+			<div class="modal fade" id="legalaidModal">
+ 			<div class="modal-header">
+    		<button type="button" class="close" data-dismiss="modal">×</button>
+    		<h3>GED Program Listings</h3>
+  			</div>
+				<div class="modal-body">
+				<p>Fair Housing Center of Metropolitan Detroit</p>
+				<p>Free Legal Aid Clinic, Inc.</p>
+				<p>Legal Aid & Defender Association, Inc. - Civil Division</p>
+				<p>Michigan Unemployment Insurance Project</p>
+				<p>Neighborhood Legal Services Michigan - Midtown Detroit Advocacy, Education & Human Survival Group</p>
+				<p>Neighborhood Legal Services Michigan - Suburban Advocacy, Human Survival, & Education Group</p>
+				<p>Neighborhood Legal Services Michigan - Downtown Detroit Management & Housing Advocacy</p>
+				<p>Salvation Army/ William Booth Legal Aid Clinic</p>
+				<p>United Community Housing Coalition</p>
+				<p>Wayne Mediation Center</p>
+				<p>Note: these will be links</p>
+				</div>
+  			<div class="modal-footer">
+    		<a href="#" class="btn" data-dismiss="modal">Close</a>
+  			</div>
+			</div>
+			
 		</div>
 		</div>
 
