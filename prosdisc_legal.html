@@ -1,0 +1,52 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Prosecutorial Discretion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Immigrant Youth Justice League">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function () {
+			
+			//If the person has no record, they can go to the final screen.
+			$('button#recordno').click(function buttonClicked(e){
+				$('#no').show();
+				$('#legalaid').hide();
+		 		});
+
+			//Display legal aid links if answer is yes or maybe.
+			function noButtonClicked(e){
+				$(e.data.othersection).show();
+				$('#no').hide();
+		 		}
+			$('#recordyes, #recordmaybe').bind('click',{othersection:'#legalaid'}, noButtonClicked);
+		});
+		
+	</script>
+</head>
+<body>
+	<div id="header">
+	<div id="header_text">
+		<p class="top_cufon">Header</p>
+	</div>
+	</div>
+	<div id="main_nav_cont" class="subnav">
+		<div id="nav_cont">
+			<ul class="nav nav-pills">
+			<li class="active">Home</li>
+			<li>Resources</li>
+			<li>About</li>
+			<li>Contact</li>
+		</ul>
+	</div>
+	</div>
+		
+<div id="wrapper">
+<div id="main_container" class="info">
+		
+</div>
+
+</body>
+</html>

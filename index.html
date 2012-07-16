@@ -1,1 +1,174 @@
-My Github Page
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Prosecutorial Discretion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Immigrant Youth Justice League">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function () {
+			
+			$('.typeahead').typeahead();
+			
+			//Each question leads to the next question, if Yes is clicked.
+			function buttonClicked(e){
+				$(e.data.nextsection).show();
+				$(e.data.hide).hide();
+		 		}
+		 	//The respondent must enter all the age-timing questions "Yes" to be eligible.
+			$('#agetimingyes1').bind('click',{nextsection:'#under31', hide: '#any-no'}, buttonClicked);
+			$('#agetimingyes2').bind('click',{nextsection:'#continuously', hide: '#any-no'}, buttonClicked);
+			$('#agetimingyes3').bind('click',{nextsection:'#presentinJune', hide: '#any-no'}, buttonClicked);
+			$('#agetimingyes4').bind('click',{nextsection:'#schooling', hide: '#any-no'}, buttonClicked);
+			//Unfortunately, any "No" disqualifies the respondent.
+			$('#agetimingno1').bind('click',{nextsection: '#any-no', hide:'#under31, #continuously, #presentinJune, #all-yes'}, buttonClicked);
+			$('#agetimingno2').bind('click',{nextsection: '#any-no', hide:'#continuously, #presentinJune, #all-yes'}, buttonClicked);
+			$('#agetimingno3').bind('click',{nextsection: '#any-no', hide:'#presentinJune, #all-yes'}, buttonClicked);
+			$('#agetimingno4').bind('click',{nextsection: '#any-no', hide:'#all-yes'}, buttonClicked);
+			//Any type of schooling is acceptable.
+			$('#schoolingyes1, #schoolingyes2, #schoolingyes3').bind('click', {nextsection: '#record', hide:'#noged'}, buttonClicked);
+			//As the respondent says "No" to schooling options, new ones appear.
+			$('#schoolingno1').bind('click',{nextsection:'#armedforces', hide:'#record'}, buttonClicked);
+			$('#schoolingno2').bind('click',{nextsection:'#diplomaged', hide:'#record'}, buttonClicked);
+			$('#schoolingno3').bind('click',{nextsection:'#record', hide:'#record'}, buttonClicked); //Will show GED stuff later, but right now go to the next page.
+			//If the respondent has no criminal record, they can go to the final screen.
+			$('#recordno').bind('click',{nextsection:'#no', hide: '#legalaid'}, buttonClicked);
+			
+			
+			//If the respondent (potentially) has a criminal record, they should be shown legal aid clinics.
+			//var $('#recordyes, #recordmaybe').bind('click',}, buttonClicked);
+			//If the respondent does not have a GED, they should be show GED classes.
+			$('#myModal').modal('hide');
+			$('#schoolingno3').bind('click',{nextsection:'#noged', hide:'#any-yes'}, buttonClicked);
+			
+		});
+		
+	</script>
+</head>
+<body>
+	<div id="header">
+	<div id="header_text">
+		<p class="top_cufon">Header</p>
+	</div>
+	</div>
+	<div id="main_nav_cont" class="subnav">
+		<div id="nav_cont">
+			<ul class="nav nav-pills">
+			<li class="active"><a href="index.html">Home</a></li>
+			<li><a href="resources.html">Resources</a></li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+	</div>
+	</div>
+		
+<div id="wrapper">
+<div id="main_container" class="info">
+	<div id="agetiming">
+		<p id="before16">Did you arrive in the U.S. before you turned 16?</p>
+		<button class="btn" id="agetimingyes1">Yes</button>
+		<button class="btn" id="agetimingno1">No</button>
+		<div id="under31" style="display:none">
+			<p>Were you above the age of 30 on June 15? (This means you had turned 31.)</p>
+			<button class="btn" id="agetimingyes2">Yes</button>
+			<button class="btn" id="agetimingno2">No</button>
+		</div>
+		<!-- If yes, show: -->
+		<div id="continuously" style="display:none">
+			<p>Have you continuously resided in the U.S. since June 15, 2007?</p>
+			<button class="btn" id="agetimingyes3">Yes</button>
+			<button class="btn" id="agetimingno3">No</button>
+		</div>
+		<!-- If yes, show: -->
+		<div id="presentinJune" style="display:none">
+			<p>Were you present in the U.S. on June 15, 2012?</p>
+			<button class="btn" id="agetimingyes4">Yes</button>
+			<button class="btn" id="agetimingno4">No</button>
+			<!-- If yes to all, show: -->
+		</div>
+		<div id="all-yes" style="display:none">
+			<button class="btn" id="agetimingnext">Next</button>
+		</div>
+		<!-- If no to any, show: -->
+		<div id="any-no" style="display:none">
+			<p>You will not qualify for prosecutorial discretion. Please see the <a href="resources.html">resources page</a> for organizations to call for more help.</p>
+		</div>
+	</div>
+	<div id="schooling" style="display:none">
+		<div id="inschool">
+			<p>Are you currently in school?</p>
+			<button class="btn" id="schoolingyes1">Yes</button>
+			<button class="btn" id="schoolingno1">No</button>
+		</div>
+		<!-- If no, show: -->
+		<div id="armedforces" style="display:none">
+			<p>Have you been honorably discharged from the U.S. Armed Forces or the Coast Guard?</p>
+			<button class="btn" id="schoolingyes2">Yes</button>
+			<button class="btn" id="schoolingno2">No</button>
+		</div>
+		<!-- If no, show: -->
+		<div id="diplomaged" style="display:none">
+			<p>Have you received a high school diploma or GED?</p>
+			<button class="btn" id="schoolingyes3">Yes</button>
+			<button class="btn" id="schoolingno3">No</button>
+		</div>
+		<!-- If yes to any, show: -->
+		<div id="any-yes" style="display:none">
+			<a class="btn" href="#record">Next</a>
+		</div>
+	</div>
+	<div id="record" style="display:none">
+		<p>Have you ever been convicted of a felony, a "significant misdemeanor," multiple misdemeanor offenses, or otherwise pose a threat to a national security or public safety?</p>
+		<button class="btn" id="recordyes">Yes</button>
+		<button class="btn" id="recordno">No</button>
+		<button class="btn" id="recordmaybe">I'm not sure</button>
+		
+		<!-- If no, show: -->
+		<div id="no" style="display:none">
+		<p>You should qualify for prosecutorial discretion, but we <strong>strongly</strong> you to seek legal advice from a qualified immigration attorney. Prosecutorial discretion is on a case-by-case basis, and there may not be a way to appeal your decision.</p>
+		<a class="btn" href="./resources.html">Find resources</a>
+		</div>
+		
+		<!-- If yes or maybe, show: -->
+		<div id="legalaid" style="display:none">
+			<p>You will not qualify for prosecutorial discretion. Below are some legal aid clinics that can help with expungement, if possible. Also, please see the <a href="resources.html">resources page</a> for organizations to call for more help.</p></p>
+		</div>
+		</div>
+
+	<div id="noged" style="display:none">
+		<p>You can still qualify if you take GED courses! Enter your city and we can show you a list of credible organizations offering GED courses:</p>
+		<form>
+			<input type="text" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source='["Belleville","Dearborn Heights","Dearborn","Detroit","Hamtramck","River Rouge","Romulus","Southgate","Taylor"," Trenton"," Wayne"," Westland","Woodhaven"," Wyandotte"]'>
+			<a class="btn" data-toggle="modal" href="#myModal">Show me organizations!</button></form>
+			
+			<div class="modal fade" id="myModal">
+ 			<div class="modal-header">
+    		<button type="button" class="close" data-dismiss="modal">×</button>
+    		<h3>GED Program Listings</h3>
+  			</div>
+				<div class="modal-body">
+				<p>Listing 1</p>
+				<p>Listing 2</p>
+				</div>
+  			<div class="modal-footer">
+    		<a href="#" class="btn" data-dismiss="modal">Close</a>
+  			</div>
+			</div>
+	</div>
+	
+	
+</div>
+</div>
+
+<div id="footer_cont">
+<p>Built by Rebecca & Rigo</p>
+</div>
+
+
+<script src="assets/js/bootstrap.js"></script>
+
+</body>
+</html>
